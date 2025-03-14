@@ -24,7 +24,7 @@ void display_map(char map[lx][ly]){
 void clean_map(char map[lx][ly]){
     for(int x = 0; x<lx; x++){
         for(int y = 0; y<ly; y++){
-            if(map[x][y]== 'X' || map[x][y] == '+') map[x][y] = '.';
+            if(map[x][y]== 'X') map[x][y] = '.';
         }
     }
 }
@@ -61,7 +61,7 @@ void part_two(char map[lx][ly], vec2 pos){
     memcpy(new_map, map, lx * ly * sizeof(char));
     for(int i = 0; i<lx; i++){
         for(int j = 0; j<ly; j++){
-            if(map[i][j] != 'X' && map[i][j] != '+') continue;
+            if(map[i][j] != 'X') continue;
             memcpy(new_map, map, lx * ly * sizeof(char));
             clean_map(new_map); 
             new_map[i][j] = '#';
@@ -76,7 +76,7 @@ void part_one(char map[lx][ly], vec2 pos){
     int n_pos = 0;
     for(int i = 0; i<lx; i++){
         for(int j = 0; j<ly; j++){
-            if(map[i][j] == 'X' || map[i][j] == '+') n_pos++;
+            if(map[i][j] == 'X') n_pos++;
         }
     }
     printf("Part one result : %d \n", n_pos);
