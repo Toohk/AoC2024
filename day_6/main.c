@@ -34,9 +34,11 @@ int run_sequence(char map[lx][ly], vec2 pos){
     bool moving = true;
     int loop_score = 0;
     while (moving && loop_score < 4) {
-        loop_score = 0;
         
-        while(map[pos.x+vecx[veci]][pos.y+vecy[veci]] == '#')veci=(veci+1) % 4;
+        while(map[pos.x+vecx[veci]][pos.y+vecy[veci]] == '#'){
+            loop_score++;
+            veci=(veci+1) % 4;
+        }
 
         if(pos.x+vecx[veci] <= 0 || pos.x+vecx[veci] >= lx-1 || pos.y+vecy[veci] <= 0 || pos.y+vecy[veci] >= ly-1 ){ 
             moving = false; 
@@ -44,9 +46,9 @@ int run_sequence(char map[lx][ly], vec2 pos){
         pos.x+=vecx[veci];
         pos.y+=vecy[veci];
 
-        if(map[pos.x][pos.y] != '+') map[pos.x][pos.y] = 'X';
-        if(map[pos.x][pos.y] == '+' && map[pos.x][pos.y+1] != '.') loop_score++;
-        map[pos.x][pos.y] = '+';
+        if(map[pos.x][pos.y] == '.') loop_score = 0;
+
+        map[pos.x][pos.y] = 'X';
     }
     if(loop_score >=4) return 1;
     return 0;
