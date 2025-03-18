@@ -8,22 +8,27 @@ long concat_long(long a, long b){
     sprintf(str_b, "%ld", b);
 
     char str_c[32];
-    strcpy(str_c, str_a);
-    strcpy(str_c, str_b);
+    sprintf(str_c, "%s%s", str_a, str_b);
     return atol(str_c);
 }
 
 long part_two(long equation[20]){
+    int base3[11]= {0};
 
     for (int i = 0; i < 177147; i++) {
         long result = equation[1];
 
-        int base3[11];
-    
-        for (int j = 0; j < 11; j++) {
-            base3[j] = i % 3;
-            i /= 3;
-        }   
+        int index = 11 -1; 
+        
+        while (index >= 0) {
+            base3[index]++;
+            if (base3[index] == 3) {
+                base3[index] = 0;
+                index--;  
+            } else {
+                break;
+            }
+        }
 
         for (int j = 0; equation[j+2] != 0; j++) {
             if (base3[j] == 0) result = result + equation[j+2]; 
@@ -73,9 +78,8 @@ int main(){
             token = strtok(NULL, " ");
         }
         part_one_result = part_one_result + part_one(equation);
-        part_two_result = part_one_result + part_two(equation);
+        part_two_result = part_two_result + part_two(equation);
     }
-
     printf("Part one result : %ld\n", part_one_result);
     printf("Part two result : %ld\n", part_two_result);
 
