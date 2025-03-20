@@ -40,8 +40,8 @@ void part_one(char map[ly][lx], Antenna * antennas, int n_freq){
             }
         }
     }
+
     for(int i = 0; i < n_freq; i++){
-    //    printf("%c %d ||", antennas[i].frequency, antennas[i].n_pos);
         for(int j=0; j < 4; j++){
             vec2 pos_a =  antennas[i].positions[j];
             if(pos_a.x == 0 && pos_a.y ==0) continue;
@@ -52,23 +52,25 @@ void part_one(char map[ly][lx], Antenna * antennas, int n_freq){
                 vec2 pos_diff = {pos_a.y - pos_b.y, pos_a.x - pos_b.x};
                 vec2 antinode = {pos_a.y + pos_diff.y, pos_a.x + pos_diff.x};
                 if(pos_a.y + pos_diff.y <0 || pos_a.y + pos_diff.y >ly) continue;
-                if(pos_a.x + pos_diff.x <0 || pos_a.x + pos_diff.x >lx-1) continue;
+                if(pos_a.x + pos_diff.x <0 || pos_a.x + pos_diff.x >lx-2) continue;
                 antennas[i].antinodes[antennas[i].n_node] = antinode;
                 map[antinode.y][antinode.x] = '#';
                 antennas[i].n_node++;
-      //          printf("[%d %d]", antinode.y, antinode.x);
             }
         }
-        //printf(" ||   %d\n", antennas[i].n_node);
     }
     for(int i=0; i<ly; i++){
         for(int j=0; j<lx; j++){
             if(map[i][j] == '#') result++;
         }
     }
-
-    print_map(map);
     printf("Part one result: %d\n", result);
+}
+
+void part_two(char map[ly][lx], Antenna * antennas, int n_freq){
+    int result = 0;
+
+    printf("Part two result: %d\n", result);
 }
 
 int main(){
@@ -101,6 +103,7 @@ int main(){
     }
 
     part_one(map, antennas, n_freq);
+    part_two(map, antennas, n_freq);
 
     free(antennas);
     return 0;
